@@ -1,0 +1,108 @@
+-- Educational Executor Detection Script
+-- If not Delta, runs ThanHubV2
+-- If Delta, shows GUI with download links for Arceus X & KRNL
+
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
+-- Official download links
+local arceusXLink = "https://arceusx.net/download/"
+local krnlLink = "https://krnl.place/"
+
+-- Detect Delta executor
+local isDelta = false
+if identifyexecutor and typeof(identifyexecutor) == "function" then
+    local name, version = identifyexecutor()
+    if name and string.lower(name) == "delta" then
+        isDelta = true
+    end
+end
+
+if not isDelta then
+    -- Run ThanHubV2 script
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/roberinoboberino/ThanHubV2/refs/heads/main/ThanHubV2"))()
+else
+    -- Create GUI for Delta users
+    local screenGui = Instance.new("ScreenGui")
+    screenGui.Name = "ExecutorWarningGui"
+    screenGui.Parent = player:WaitForChild("PlayerGui")
+
+    local frame = Instance.new("Frame")
+    frame.Size = UDim2.new(0, 450, 0, 250)
+    frame.Position = UDim2.new(0.5, -225, 0.5, -125)
+    frame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+    frame.BorderSizePixel = 0
+    frame.Parent = screenGui
+
+    local corner = Instance.new("UICorner")
+    corner.CornerRadius = UDim.new(0, 12)
+    corner.Parent = frame
+
+    -- Title
+    local title = Instance.new("TextLabel")
+    title.Size = UDim2.new(1, 0, 0, 50)
+    title.BackgroundTransparency = 1
+    title.Text = "⚠ Unsupported executor detected: Delta"
+    title.Font = Enum.Font.GothamBold
+    title.TextSize = 20
+    title.TextColor3 = Color3.fromRGB(255, 85, 85)
+    title.Parent = frame
+
+    -- Middle message
+    local msg = Instance.new("TextLabel")
+    msg.Size = UDim2.new(1, -20, 0, 100)
+    msg.Position = UDim2.new(0, 10, 0, 60)
+    msg.BackgroundTransparency = 1
+    msg.TextWrapped = true
+    msg.Text = "Use other executors like Arceus X or KRNL."
+    msg.Font = Enum.Font.Gotham
+    msg.TextSize = 16
+    msg.TextColor3 = Color3.fromRGB(255, 255, 255)
+    msg.Parent = frame
+
+    -- Arceus X Button
+    local arceusBtn = Instance.new("TextButton")
+    arceusBtn.Size = UDim2.new(0, 180, 0, 40)
+    arceusBtn.Position = UDim2.new(0.1, 0, 1, -50)
+    arceusBtn.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+    arceusBtn.Text = "Download Arceus X"
+    arceusBtn.Font = Enum.Font.GothamBold
+    arceusBtn.TextSize = 14
+    arceusBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+    arceusBtn.Parent = frame
+    local arceusCorner = Instance.new("UICorner")
+    arceusCorner.CornerRadius = UDim.new(0, 8)
+    arceusCorner.Parent = arceusBtn
+
+    arceusBtn.MouseButton1Click:Connect(function()
+        setclipboard(arceusXLink)
+        game:GetService("StarterGui"):SetCore("SendNotification", {
+            Title = "Link Copied",
+            Text = "Arceus X download link copied to clipboard.",
+            Duration = 3
+        })
+    end)
+
+    -- KRNL Button
+    local krnlBtn = Instance.new("TextButton")
+    krnlBtn.Size = UDim2.new(0, 180, 0, 40)
+    krnlBtn.Position = UDim2.new(0.55, 0, 1, -50)
+    krnlBtn.BackgroundColor3 = Color3.fromRGB(0, 200, 100)
+    krnlBtn.Text = "Download KRNL"
+    krnlBtn.Font = Enum.Font.GothamBold
+    krnlBtn.TextSize = 14
+    krnlBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+    krnlBtn.Parent = frame
+    local krnlCorner = Instance.new("UICorner")
+    krnlCorner.CornerRadius = UDim.new(0, 8)
+    krnlCorner.Parent = krnlBtn
+
+    krnlBtn.MouseButton1Click:Connect(function()
+        setclipboard(krnlLink)
+        game:GetService("StarterGui"):SetCore("SendNotification", {
+            Title = "Link Copied",
+            Text = "KRNL download link copied to clipboard.",
+            Duration = 3
+        })
+    end)
+end
