@@ -1,7 +1,3 @@
--- Educational Executor Detection Script
--- If not Delta, runs ThanHubV2
--- If Delta, shows GUI with download links for Arceus X & KRNL
-
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
 
@@ -42,7 +38,7 @@ else
     local title = Instance.new("TextLabel")
     title.Size = UDim2.new(1, 0, 0, 50)
     title.BackgroundTransparency = 1
-    title.Text = "⚠ Unsupported executor detected: Delta"
+    title.Text = "Unsupported executor detected: Delta"
     title.Font = Enum.Font.GothamBold
     title.TextSize = 20
     title.TextColor3 = Color3.fromRGB(255, 85, 85)
